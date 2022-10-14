@@ -6,7 +6,7 @@
   "background": { "service_worker": "background.bundle.js" },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon-34.png"
+    "default_icon": "parawallet32x32.png"
   },
   "chrome_url_overrides": {
     "newtab": "newtab.html"
