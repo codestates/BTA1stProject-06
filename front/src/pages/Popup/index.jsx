@@ -3,17 +3,12 @@ import { render } from 'react-dom';
 
 import Popup from './Popup';
 import './index.css';
-import {Provider} from "react-redux";
-import {createStore} from "redux";
-import rootReducer from "./redux/index";
-
-// 스토어 생성
-const store = createStore(rootReducer);
+import {RecoilRoot} from "recoil";
 
 render(
-    <Provider store={store}>
+    <RecoilRoot>
         <Popup />
-    </Provider>
+    </RecoilRoot>
     , window.document.querySelector('#app-container'));
 
 if (module.hot) module.hot.accept();

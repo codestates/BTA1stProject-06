@@ -1,11 +1,11 @@
 import React from 'react';
 import './Start.css';
-import {useDispatch} from "react-redux";
-import {pageMove} from "../../redux/modules/page";
 import Header from "../../containers/Header/Header";
+import {useSetRecoilState} from "recoil";
+import {pageState} from "../../recoil";
 
 const Start = () => {
-    const dispatch = useDispatch();
+    const setPage = useSetRecoilState(pageState);
 
     return (
         <div className="Start">
@@ -16,7 +16,7 @@ const Start = () => {
             <div className="sub-title sub-title1">반갑습니다.</div>
 
             <button className="start-btn" onClick={() => {
-                dispatch(pageMove('select'));
+                setPage('Select');
             }}>시작하기</button>
         </div>
     );

@@ -1,11 +1,11 @@
 import React from 'react';
 import './Select.css';
 import Header from "../../containers/Header/Header";
-import {useDispatch} from "react-redux";
-import {pageMove} from "../../redux/modules/page";
+import {useSetRecoilState} from "recoil";
+import {pageState} from "../../recoil";
 
 const Select = () => {
-    const dispatch = useDispatch();
+    const setPage= useSetRecoilState(pageState);
 
     return (
         <div className="Select">
@@ -23,7 +23,7 @@ const Select = () => {
                     <div className="box-title">설정을 시작하죠!</div>
                     <div className="box-sub-title">이렇게 하면 새 지갑과 비밀 복구 구문이 만들어집니다.</div>
                     <button className="select-btn" onClick={() => {
-                        dispatch(pageMove('createwallet'));
+                        setPage('CreateWallet');
                     }}>지갑 생성</button>
                 </div>
             </div>

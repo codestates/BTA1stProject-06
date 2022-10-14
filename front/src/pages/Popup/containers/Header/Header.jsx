@@ -1,19 +1,25 @@
 import React from 'react';
 import './Header.css';
-import {useDispatch} from "react-redux";
-import {pageMove} from "../../redux/modules/page";
+import {useSetRecoilState} from "recoil";
+import {pageState} from "../../recoil/index";
 
-const Header = () => {
-    const dispatch = useDispatch();
+const Header = ({ backPageName }) => {
+    const setPage = useSetRecoilState(pageState);
 
     return (
         <div className="Header">
+            <div className={`back-btn ${backPageName === undefined ? '' : 'visible'}`} onClick={() => {
+                setPage(backPageName)
+            }}>{'<'}</div>
+
             <div className="top" onClick={() => {
-                dispatch(pageMove('start'));
+                setPage('Start');
             }}>
                 <img src="./parawallet32x32.png" />
-                <div>A-MAN</div>
+                <div className="main-title">A-MAN</div>
             </div>
+
+            <div className="empty">{'>'}</div>
         </div>
     );
 };
