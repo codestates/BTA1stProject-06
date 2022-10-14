@@ -1,19 +1,15 @@
 import React from 'react';
 import './Popup.css';
 import Start from "./pages/Start/Start";
-import {BrowserRouter, Route, Router, Switch, Routes} from "react-router-dom";
+import {useStore} from "react-redux";
 
 const Popup = () => {
-    console.log(window.location.href)
+    console.log(useStore().getState().page.page)
 
     return (
-        <BrowserRouter>
             <div className="App">
-                <Routes>
-                    <Route path="/" component={Start} />
-                </Routes>
+                <Start />
             </div>
-        </BrowserRouter>
     );
 };
 
