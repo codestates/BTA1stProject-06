@@ -22,3 +22,14 @@ export const enum DECIMAL_PLACE_FROM_PLANCK {
   ROCOCO = 12,
   SHIBUYA = 18,
 }
+
+export const enum EXPLORER_LINK {
+  POLKADOT = "https://polkadot.subscan.io/extrinsic/",
+  KUSAMA = "https://kusama.subscan.io/extrinsic/",
+  ASTAR = "https://astar.subscan.io/extrinsic/",
+  SHIDEN = "https://shiden.subscan.io/extrinsic/",
+  PARALLEL = "https://parallel.subscan.io/extrinsic/",
+  INTERLAY = "https://interlay.subscan.io/extrinsic/",
+  ROCOCO = "https://rococo.subscan.io/extrinsic/",
+  SHIBUYA = "https://shibuya.subscan.io/extrinsic/",
+}
