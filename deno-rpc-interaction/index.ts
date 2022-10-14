@@ -12,6 +12,14 @@ import { ApiTypes } from "https://deno.land/x/polkadot@0.0.9/api-base/types/inde
 import type {} from "https://deno.land/x/polkadot@0.0.9/api-augment/mod.ts";
 import type { AnyJson } from "https://deno.land/x/polkadot@0.0.9/types-codec/types/index.ts";
 import { mnemonicGenerate } from "https://deno.land/x/polkadot@0.2.10/util-crypto/mod.ts";
+import { cryptoWaitReady } from "https://deno.land/x/polkadot@0.0.9/util-crypto/crypto.ts";
+
+export const createPairFromSeed = (mnemonic: string): KeyringPair => {
+    const seed: string = mnemonic;
+    const keyring: Keyring = new Keyring({ type: "sr25519" });
+    const pair: KeyringPair = keyring.createFromUri(seed);
+    return pair;
+  };
 
 export const getPairFromSeed = (mnemonic: string): KeyringPair => {
   const seed: string = mnemonic;
@@ -57,8 +65,11 @@ export const transferNativeToken = async (
   return hash.toHex();
 };
 
-const test = () => {
+const test = async () => {
   console.log("init");
+  // wasm initialization
+  await cryptoWaitReady();
+  
   console.log(mnemonicGenerate());
 };
 
