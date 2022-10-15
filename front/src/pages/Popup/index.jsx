@@ -1,3 +1,6 @@
+import { initWasm } from '@polkadot/wasm-crypto/initOnlyAsm';
+import { waitReady } from '@polkadot/wasm-crypto';
+import { cryptoWaitReady} from '@polkadot/util-crypto';
 import React from 'react';
 import { render } from 'react-dom';
 

@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@hot-loader/react-dom": "^17.0.2",
-    "axios": "^1.1.2",
     "@polkadot/api": "^9.5.1",
+    "@polkadot/util-crypto": "^10.1.11",
+    "@polkadot/wasm-crypto": "^6.3.1",
+    "axios": "^1.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
