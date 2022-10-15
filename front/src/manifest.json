@@ -9,7 +9,6 @@
     "default_icon": "parawallet32x32.png"
   },
   "chrome_url_overrides": {
-    "newtab": "newtab.html"
   },
   "icons": {
     "128": "parawallet128x128.png"
