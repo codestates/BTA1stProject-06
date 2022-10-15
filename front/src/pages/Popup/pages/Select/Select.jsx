@@ -11,7 +11,7 @@ const Select = () => {
         <div className="Select">
             <Header></Header>
 
-            <div className="select-title">A-MAN이 처음이신가요?</div>
+            <div className="select-title">Para-Wallet이 처음이신가요?</div>
 
             <div className="box-wrap">
                 <div className="box">
