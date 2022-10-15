@@ -3,8 +3,9 @@ import './CreateWallet.css';
 import Header from "../../containers/Header/Header";
 import {useSetRecoilState} from "recoil";
 import {pageState} from "../../recoil/index";
-import {createMnemonic, createPairFromSeed, crea} from "../../modules/usePolkadotAPI";
+import {createMnemonic, createPairFromSeed} from "../../modules/usePolkadotAPI";
 import {cryptoWaitReady} from "@polkadot/util-crypto";
+import Validation from "../../modules/Validation";
 
 const CreateWallet = () => {
     const setPage = useSetRecoilState(pageState);
@@ -18,6 +19,20 @@ const CreateWallet = () => {
 
     const [allCheck, setAllCheck] = useState(false);
 
+    const checkPassWord = () => {
+        if(password === ''){setError1(''); return;}
+        if(!Validation.check(password, Validation.all_basic8)){setError1('비밀번호가 짧아요'); return;}
+
+        setError1('');
+    }
+
+    const checkRePassWord = () => {
+        if(rePassword === ''){setError2(''); return;}
+        if(rePassword !== password){setError2('비밀번호가 달라요'); return;}
+
+        setError2('');
+    }
+
     const checkAllValue = () => {
         if(password === '' || rePassword === '' || checkBox === false){
             setAllCheck(false);
@@ -27,39 +42,20 @@ const CreateWallet = () => {
         setAllCheck(true);
     }
 
-    const checkPassWord = (e) => {
-        setPassWord(e.target.value);
-
-        if(e.target.value === ''){
-            setError1('');
-            return;
-        }
-
-        setError1('er');
-    }
-
-    const checkRePassWord = (e) => {
-        setRePassWord(e.target.value);
-
-        if(e.target.value === ''){
-            setError2('');
-            return;
-        }
-
-        setError2('er');
-    }
 
     const createWallet = async () => {
-        // await cryptoWaitReady();
-        // const mnemonic = createMnemonic();
-        // const pair = createPairFromSeed(mnemonic);
-        //
-        // console.log(pair);
+        await cryptoWaitReady();
+        const mnemonic = createMnemonic();
+        const pair = createPairFromSeed(mnemonic);
+
+        console.log(pair);
 
         setPage('ProtectWallet');
     }
 
     useEffect(() => {
+        checkPassWord();
+        checkRePassWord();
         checkAllValue();
     }, [password, rePassword, checkBox])
 
@@ -72,13 +68,23 @@ const CreateWallet = () => {
                 <div className="create-wallet-title">비밀번호 만들기</div>
                 <div className="create-wallet-input-box">
                     <div className="create-wallet-password-title">새 비밀번호(8자리 이상)</div>
-                    <input className="password-input" onChange={checkPassWord} />
-                    <div className={`error-message ${error1 === ''? '': 'visibility-visible'}`}>{error1}</div>
+                    <input className="password-input" type="password" onChange={(e) => {
+                        setPassWord(e.target.value);
+                    }} />
+                    <div>
+                        {'\u00A0'}
+                        <span className={`error-message ${error1 === ''? '': 'visibility-visible'}`}>{error1}</span>
+                    </div>
                 </div>
                 <div className="create-wallet-input-box">
                     <div className="create-wallet-password-title">비밀번호 확인</div>
-                    <input className="password-input" onChange={checkRePassWord} />
-                    <div className={`error-message ${error2 === ''? '': 'visibility-visible'}`}>{error2}</div>
+                    <input className="password-input" type="password" onChange={(e) => {
+                        setRePassWord(e.target.value);
+                    }} />
+                    <div>
+                        {'\u00A0'}
+                        <span className={`error-message ${error2 === ''? '': 'visibility-visible'}`}>{error2}</span>
+                    </div>
                 </div>
 
                 <div className="agree-box">
