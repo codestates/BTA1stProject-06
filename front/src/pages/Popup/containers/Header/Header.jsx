@@ -12,7 +12,7 @@ const Header = () => {
                 dispatch(pageMove('start'));
             }}>
                 <img src="./parawallet32x32.png" />
-                <div>A-MAN</div>
+                <div>PARA-WALLET</div>
             </div>
         </div>
     );
