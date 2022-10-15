@@ -2,13 +2,15 @@ import React, {useEffect, useState} from 'react';
 import './CreateWallet.css';
 import Header from "../../containers/Header/Header";
 import {useSetRecoilState} from "recoil";
-import {pageState} from "../../recoil/index";
+import {pageState, mnState, encryptPairState} from "../../recoil/index";
 import {createMnemonic, createPairFromSeed} from "../../modules/usePolkadotAPI";
-import {cryptoWaitReady} from "@polkadot/util-crypto";
 import Validation from "../../modules/Validation";
+import CryptoJS from "crypto-js";
 
 const CreateWallet = () => {
     const setPage = useSetRecoilState(pageState);
+    const setMn = useSetRecoilState(mnState);
+    const setEncryptPair = useSetRecoilState(encryptPairState);
 
     const [password, setPassWord] = useState('');
     const [rePassword, setRePassWord] = useState('');
@@ -44,13 +46,16 @@ const CreateWallet = () => {
 
 
     const createWallet = async () => {
-        await cryptoWaitReady();
-        const mnemonic = createMnemonic();
-        const pair = createPairFromSeed(mnemonic);
+        try {
+            const mnemonic = createMnemonic();
+            const pair = createPairFromSeed(mnemonic);
 
-        console.log(pair);
-
-        setPage('ProtectWallet');
+            setEncryptPair(CryptoJS.AES.encrypt(JSON.stringify(pair), password).toString());
+            setMn(mnemonic);
+            setPage("ProtectWallet");
+        }catch (e) {
+            console.log(e);
+        }
     }
 
     useEffect(() => {
@@ -96,7 +101,7 @@ const CreateWallet = () => {
                     </div>
                 </div>
 
-                <button className={`create-btn ${allCheck === true ? 'check-all' : ''}`} onClick={createWallet}>생성</button>
+                <button className={`create-btn ${allCheck === true ? 'check-all' : ''}`} onClick={createWallet}>다음</button>
             </div>
         </div>
     );

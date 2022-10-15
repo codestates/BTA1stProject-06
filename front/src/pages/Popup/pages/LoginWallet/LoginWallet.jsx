@@ -1,11 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './LoginWallet.css';
-import {loadingState} from "../../recoil";
-import {useRecoilValue} from "recoil";
+import {pageState, pairState} from "../../recoil";
+import {useSetRecoilState} from "recoil";
 import Header from "../../containers/Header/Header";
+import Storage from "../../modules/Storage";
 
 const LoginWallet = () => {
-    const isLoading = useRecoilValue(loadingState)
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
+    const setPage = useSetRecoilState(pageState);
+    const setPair = useSetRecoilState(pairState);
+
+    const checkPassword = async () => {
+        try {
+            const pair = await Storage.getKeyPair(password);
+            setPair(pair);
+            setError(false);
+            setPage('MyWallet');
+        }catch (e) {
+            setError(true);
+        }
+    }
 
     return (
         <div className="LoginWallet">
@@ -16,11 +31,19 @@ const LoginWallet = () => {
             <div className="login-wallet-sub-title">분산된 웹이 다음을 대기중</div>
 
             <div className="login-password-input-box">
-                <input className="login-password-input" placeholder="비밀번호" />
+                <input className="login-password-input" type="password" placeholder="비밀번호" onChange={(e) => {
+                    setPassword(e.target.value)
+                }} />
+                <div className="error-box">
+                    <span className={`login-error-message ${error ? 'login-error-visibility-visible': ''}`}>비밀번호가 틀렸습니다.</span>
+                    {'\u00A0'}
+                </div>
             </div>
 
+
+
             <div className="login-btn-box">
-                <button className="login-btn">잠금해제</button>
+                <button className="login-btn" onClick={checkPassword}>잠금해제</button>
             </div>
 
             <div className="password-help">비밀번호를 잊으셨나요?</div>

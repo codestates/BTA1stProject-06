@@ -1,5 +1,7 @@
+import CryptoJS from "crypto-js";
+
 export default class Storage {
-    static keyStore = 'KEYSTORE';
+    static keyPair = 'KEYPAIR';
 
     static async set(key, value){
         if(typeof key !== "string" || typeof value !== "string"){
@@ -29,11 +31,16 @@ export default class Storage {
         })
     }
 
-    static async setKeyStore(value) {
-        return await this.set(this.keyStore, value);
+    static async clear(){
+        await chrome.storage.local.clear();
     }
 
-    static async getKeyStore(){
-        return await this.get(this.keyStore);
+    static async setKeyPair(pair, password) {
+        return await this.set(this.keyPair, CryptoJS.AES.encrypt(JSON.stringify(pair), password).toString());
+    }
+
+    static async getKeyPair(password){
+        const keyPair = await this.get(this.keyPair);
+        return JSON.parse(CryptoJS.AES.decrypt(keyPair, password).toString(CryptoJS.enc.Utf8));
     }
 }
