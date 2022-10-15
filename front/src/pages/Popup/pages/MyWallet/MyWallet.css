@@ -1,0 +1,75 @@
+.MyWallet {
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.wallet-info-box1 {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.wallet-info-box2 {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.btn-box {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.history-box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.history-title {
+    text-align: center;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px 0 #0000001a;
+}
+
+.history-list {
+    flex: 1;
+    background-color: #9b9b9b;
+}
+
+
+.purchase-btn {
+    width: 150px;
+    height: 50px;
+    border-radius: 500px;
+    color: white;
+    background-color: #037dd6;
+    border: none;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.purchase-btn:hover {
+    background-color: grey;
+}
+
+.mywallet-send-btn {
+    width: 150px;
+    height: 50px;
+    border-radius: 500px;
+    color: white;
+    background-color: #037dd6;
+    border: none;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.mywallet-send-btn:hover {
+    background-color: grey;
+}

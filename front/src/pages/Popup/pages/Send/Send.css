@@ -1,0 +1,71 @@
+.Send {
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+}
+
+.send-box {
+
+}
+
+.send-box-title {
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    margin: 20px 0 50px 0;
+}
+
+.send-input-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.send-input {
+    border: 1px solid #bbc0c5;
+    width: 200px;
+    height: 40px;
+    border-radius: 6px;
+    padding: 0 10px;
+}
+
+.send-input:focus {
+    outline: none;
+    border: 1px solid #037dd6;
+}
+
+.send-btn-box {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 60px;
+}
+
+
+.send-cancel-btn {
+    width: 150px;
+    height: 40px;
+    border-radius: 500px;
+    color: #037dd6;
+    border: 1px solid #037dd6;
+    background-color: white;
+    cursor: pointer;
+}
+
+.send-cancel-btn:hover {
+    background-color: #eeeeee;
+}
+
+.send-btn {
+    width: 150px;
+    height: 40px;
+    border-radius: 500px;
+    color: white;
+    background-color: #037dd6;
+    border: none;
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    background-color: grey;
+}

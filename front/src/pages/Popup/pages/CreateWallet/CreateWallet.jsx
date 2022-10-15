@@ -22,6 +22,11 @@ const CreateWallet = () => {
         setAllCheck(true);
     }
 
+    const createWallet = () => {
+
+        setPage('ProtectWallet');
+    }
+
     useEffect(() => {
         checkValue();
     }, [password, rePassword, checkBox, allCheck])
@@ -60,9 +65,7 @@ const CreateWallet = () => {
                     </div>
                 </div>
 
-                <button className={`create-btn ${allCheck === true ? 'check-all' : ''}`} onClick={() => {
-                    setPage('ProtectWallet');
-                }}>생성</button>
+                <button className={`create-btn ${allCheck === true ? 'check-all' : ''}`} onClick={createWallet}>생성</button>
             </div>
         </div>
     );
