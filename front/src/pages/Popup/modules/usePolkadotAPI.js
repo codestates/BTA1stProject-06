@@ -134,4 +134,4 @@ const initTest = async () => {
     // await balanceTest();
 };
 
-initTest();
+// initTest();
