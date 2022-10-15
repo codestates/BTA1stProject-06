@@ -10,7 +10,6 @@ const Header = ({ backPageName, align, goHome = true }) => {
 
     return (
         <div className="Header">
-
             {
                 align === 'left' ?
                     <div className="left-head-box">
@@ -46,6 +45,7 @@ const Header = ({ backPageName, align, goHome = true }) => {
                         <div className="empty">{'>'}</div>
                     </>
             }
+
         </div>
     );
 };

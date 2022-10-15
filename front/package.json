@@ -1,7 +1,7 @@
 {
-  "name": "chrome-extension-boilerplate-react",
-  "version": "4.3.5",
-  "description": "A chrome extension boilerplate built with React 17, Webpack 5, and Webpack Dev Server 4",
+  "name": "para-wallet",
+  "version": "1.0.0",
+  "description": "parawallet chrome extension: polkadot/kusama relaychain/parachain all-in-one wallelt",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,11 +10,13 @@
   "scripts": {
     "build": "node utils/build.js",
     "start": "node utils/webserver.js",
+    "modTest": "node ./src/pages/Popup/modules/usePolkadotAPI",
     "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
   },
   "dependencies": {
     "@hot-loader/react-dom": "^17.0.2",
     "axios": "^1.1.2",
+    "@polkadot/api": "^9.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
@@ -56,5 +58,6 @@
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
-  }
+  },
+  "type": "module"
 }

@@ -4,7 +4,7 @@
 
 - 문제점: 릴레이 체인과 파라체인 모두 커버하는 크롬 익스텐션 지갑이 없음(웹 지갑은 존재)
 - 솔루션: relay chain인 POLKADOT/KUSAMA/ROCOCO(testnet)과 비교적 잘 알려진 파라체인인
-  ASTAR/SHIDEN/SHIBUYA(testnet)/PARALLEL/INTERLAY에서 네이티브 토큰을 전송할 수 있는 크롬 익스텐션
+  ASTAR/SHIDEN에서 네이티브 토큰을 전송할 수 있는 크롬 익스텐션
   지갑을 만들자.
 
 ## POLKADOT/KUSAMA/ROCOCO
@@ -21,12 +21,6 @@
 - 최근 EVM contract와 WASM contract를 상호 운용가능하게 하는 대규모 Update를 준비하고 있음(기술적으로 되게 주목받는
   체인이다)
 - SHIDEN은 역시나 ASTAR의 sister chain이며 SHIBUYA는 테스트넷이다.
-
-## ACALA/PARALLEL/INTERLAY
-
-- Polkadot 생태계내 비교적 잘 알려진 Defi 프로토콜 파라체인이다.
-- 참고로 폴카닷에서는 하나의 프로토콜을 위해 파라체인을 만들어 런칭할 수 있다.
-- 즉 이것들은 dApp이면서 동시에 Layer 1 체인이기도 하다.
 
 ## Tech stack
 
