@@ -6,7 +6,7 @@ import Loading from "./containers/Loading/Loading";
 import {render} from "./router";
 import { initWasm } from '@polkadot/wasm-crypto/initOnlyAsm';
 import { waitReady } from '@polkadot/wasm-crypto';
-import { cryptoWaitReady} from '@polkadot/util-crypto';
+import { cryptoWaitReady } from '@polkadot/util-crypto';
 
 const Popup = () => {
     const page = useRecoilValue(pageState);

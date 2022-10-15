@@ -1,7 +1,6 @@
-import { initWasm } from '@polkadot/wasm-crypto/initOnlyAsm';
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { Keyring } from '@polkadot/keyring';
-import { mnemonicGenerate } from '@polkadot/util-crypto';
+import { mnemonicGenerate, cryptoWaitReady } from '@polkadot/util-crypto';
 
 const RpcEndpoint = Object.freeze({
     POLKADOT: "wss://rpc.polkadot.io:443",
@@ -17,11 +16,13 @@ export const SS58Format = Object.freeze({
     KUSAMA: 2,
     ASTAR: 5,
     ACALA: 10,
+    ROCOCO: 42,
+    ROCOCO_CONTRACTS: 42,
     DEFAULT: 42, //ROCOCO, ROCOCO_CONTRACTS
 })
 
 export const DecimalPaceFromPlanck = Object.freeze({
-    POLKADOT: 10,// KUSAMA 추가 예정
+    POLKADOT: 10,// KUSAMA 추가 예정, Polkadot도 테스트는 한번 해봐야함
     ASTAR: 18,
     ACALA: 12,
     ROCOCO: 12,
@@ -119,13 +120,18 @@ const balanceTest = async () => {
 }
 
 const sendTxTest = async () => {
-    console.log('hi');
+    console.log('sendTx test start');
+    const pair2 = getPairFromSeedWithSS58("받을 계좌(to)의 니모닉", SS58Format.ROCOCO_CONTRACTS);
+    const txHash = await transferNativeToken(RpcEndpoint.ROCOCO_CONTRACTS, "전송하는 계좌(from)의 니모닉", pair2.address, 1000000000000n);
+    console.log(txHash);
+    console.log('sendTx test finished');
 }
 
 const initTest = async () => {
-    // await sendTxTest();
+    await cryptoWaitReady();
+    await sendTxTest();
     // await keyPairTest();
     // await balanceTest();
 };
 
-// initTest();
+initTest();

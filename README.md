@@ -9,18 +9,21 @@
 
 ## POLKADOT/KUSAMA/ROCOCO
 
-- RELAY CHAIN으로서 파라체인을 연결하는 중심 체인이다. LAYER 0 블록체인이다.
+- 위 체인들은 RELAY CHAIN으로서 파라체인들을 연결하는 중심 체인이자 LAYER 0 블록체인이다.
 - POLKADOT은 시총 10위 근처에 해당하는 체인으로 빗썸에 상장되어있다.
 - KUSAMA는 POLKADOT의 sister 또는 uncle 체인으로 불리며 polkadot보다 조금 더 실험적인 생태계로 구성되어있다.
-  폴카닷에 런칭하기 전 마지막 실전 테스트를 하는 체인으로 생각하면 된다.
+  POLKADOT에 런칭하기 전 시장에 내놓아 마지막 테스트를 하는 체인이며 네이티브 토큰이 실제로 경제적 가치를 지니고 있다.
 - ROCOCO는 LAYER 0 relay chain 테스트넷이다.
 
 ## ASTAR/SHIDEN/SHIBUYA
 
 - 스마트컨트랙트 허브 및 플랫폼 역할을 하는 폴카닷 파라체인
-- 최근 EVM contract와 WASM contract를 상호 운용가능하게 하는 대규모 Update를 준비하고 있음(기술적으로 되게 주목받는
-  체인이다)
-- SHIDEN은 역시나 ASTAR의 sister chain이며 SHIBUYA는 테스트넷이다.
+- 최근 EVM contract와 WASM contract를 상호 운용가능하게 하는 대규모 Update를 준비하고 있다. (기술적으로 매우 주목받는 체인 중 하나)
+
+## ACALA
+
+- 폴카닷내 잘 알려져있는 디파이 프로토콜이자 파라체인이다.
+- 폴카닷 파라체인은 독특하게도 dApp 하나만을 위한 Layer 1 블록체인(파라체인)을 build할 수 있다.
 
 ## Tech stack
 
