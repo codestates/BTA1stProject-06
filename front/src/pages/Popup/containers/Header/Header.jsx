@@ -1,19 +1,51 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Header.css';
-import {useDispatch} from "react-redux";
-import {pageMove} from "../../redux/modules/page";
+import {useSetRecoilState} from "recoil";
+import {pageState} from "../../recoil/index";
 
-const Header = () => {
-    const dispatch = useDispatch();
+const Header = ({ backPageName, align, goHome = true }) => {
+    const setPage = useSetRecoilState(pageState);
+
+    const [dropbox, setDropBox] = useState(false);
 
     return (
         <div className="Header">
-            <div className="top" onClick={() => {
-                dispatch(pageMove('start'));
-            }}>
-                <img src="./parawallet32x32.png" />
-                <div>PARA-WALLET</div>
-            </div>
+            {
+                align === 'left' ?
+                    <div className="left-head-box">
+                        <div className="top-left">
+                            <img src="./parawallet32x32.png" />
+                        </div>
+
+                        <div className="network-box" onClick={() => {
+                            setDropBox(!dropbox);
+                        }}>
+                            이더리움 메인넷
+                        </div>
+
+                        <div className={`drop-box ${dropbox ? 'display-block' : ''}`}>
+
+                        </div>
+                    </div>
+                    :
+                    <>
+                        <div className={`back-btn ${backPageName === undefined ? '' : 'visible'}`} onClick={() => {
+                            setPage(backPageName)
+                        }}>{'<'}</div>
+
+                        <div className="top" onClick={() => {
+                            if(goHome){
+                                setPage('Start');
+                            }
+                        }}>
+                            <img src="./parawallet32x32.png" />
+                            <div className="main-title">A-MAN</div>
+                        </div>
+
+                        <div className="empty">{'>'}</div>
+                    </>
+            }
+
         </div>
     );
 };

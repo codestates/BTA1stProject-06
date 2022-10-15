@@ -1,32 +1,17 @@
 import React, { useEffect } from 'react';
 import './Popup.css';
-import Start from "./pages/Start/Start";
-import Select from "./pages/Select/Select";
-import {useSelector} from "react-redux";
-import CreateWallet from "./pages/CreateWallet/CreateWallet";
+import {useRecoilValue} from "recoil";
+import {pageState} from "./recoil";
+import Loading from "./containers/Loading/Loading";
+import {render} from "./router";
 
 const Popup = () => {
-    const { page } = useSelector(state => state.page);
-    // useEffect(()=>{
-    // }, [])
-
-    const render = () => {
-        const qwer = 'select';
-        switch(page){
-            case 'start':
-                return <Start />
-            case 'select':
-                return <Select />
-            case 'createwallet':
-                return <CreateWallet />
-            default:
-                return null;
-        }
-    }
+    const page = useRecoilValue(pageState);
 
     return (
             <div className="App">
-                {render()}
+                {render(page)}
+                <Loading></Loading>
             </div>
     );
 };

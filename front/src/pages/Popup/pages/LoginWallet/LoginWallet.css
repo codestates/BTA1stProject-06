@@ -1,0 +1,70 @@
+.LoginWallet {
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+}
+
+.login-wallet-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    color: grey;
+    margin: 20px;
+}
+
+.login-wallet-sub-title {
+    text-align: center;
+    font-size: 18px;
+    color: grey;
+    margin-bottom: 50px;
+}
+
+.login-password-input-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.login-password-input {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid black;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.login-password-input:focus {
+    outline: none;
+}
+
+.login-btn-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.login-btn {
+    width: 200px;
+    height: 50px;
+    border-radius: 500px;
+    color: white;
+    background-color: #037dd6;
+    border: none;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.login-btn:hover {
+    background-color: grey;
+}
+
+.password-help {
+    text-align: center;
+    font-weight: 600;
+    color: #037dd6;
+    cursor: pointer;
+}
+
+.password-help:hover {
+    color: blue;
+}
