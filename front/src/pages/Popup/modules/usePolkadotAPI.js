@@ -22,7 +22,8 @@ export const SS58Format = Object.freeze({
 })
 
 export const DecimalPaceFromPlanck = Object.freeze({
-    POLKADOT: 10,// KUSAMA 추가 예정, Polkadot도 테스트는 한번 해봐야함
+    POLKADOT: 10,
+    KUSAMA: 12,
     ASTAR: 18,
     ACALA: 12,
     ROCOCO: 12,
@@ -232,16 +233,16 @@ const balanceTest = async () => {
 
 const sendTxTest = async () => {
     console.log('sendTx test start');
-    const amount = 10000000000n; // 0.01 ROC
-    const toAddressInContracts = "5FC1pcu7fb7Rezb9z2REuhgLnXDp8gN4m7AstWAvfqzXvv9M";
-    const pair = getPairFromSeedWithSS58("ice twist upper property roast flavor step plate cycle flower object sausage", SS58Format.ROCOCO_CONTRACTS);
-    const txHash = await transferNativeToken(RpcEndpoint.ROCOCO_CONTRACTS, pair, toAddressInContracts, amount);
+    const amount = 1000000000000n; // 1 DOT
+    const toAddress = "받는 주소";
+    const pair = getPairFromSeedWithSS58("니모닉", SS58Format.KUSAMA);
+    const txHash = await transferNativeToken(RpcEndpoint.KUSAMA, pair, toAddress, amount);
     console.log(txHash);
     console.log('sendTx test finished');
 }
 
 const xcmTest = async () => {
-    const pair = getPairFromSeedWithSS58("ice twist upper property roast flavor step plate cycle flower object sausage", SS58Format.ROCOCO_CONTRACTS);
+    const pair = getPairFromSeedWithSS58("니모닉", SS58Format.ROCOCO_CONTRACTS);
     const toAddress = "5FC1pcu7fb7Rezb9z2REuhgLnXDp8gN4m7AstWAvfqzXvv9M";
     const amount = 10000000000n;
     const txHashToROC = await teleportAssetsFromContractsToROC(RpcEndpoint.ROCOCO_CONTRACTS, pair, toAddress, amount);
@@ -252,10 +253,10 @@ const xcmTest = async () => {
 
 const initTest = async () => {
     await cryptoWaitReady();
+    // await sendTxTest();
     // await xcmTest();
     // await keyPairTest();
     // await balanceTest();
-    // await sendTxTest();
 };
 
 // initTest();
