@@ -15,6 +15,8 @@ const MyWallet = () => {
 
     const [balance, setBalance] = useState('');
 
+    const [balance, setBalance] = useState('');
+
     useEffect( () => {
         console.log(selectedPair)
 
@@ -27,6 +29,13 @@ const MyWallet = () => {
         const balance = await getFreeBalance(endpoint, selectedPair.address);
         setBalance(balance.toString());
         setLoading(false)
+    }
+    }, [])
+
+    const getBalance = async () => {
+        const endpoint = RpcEndpoint[chain];
+        const balance = await getFreeBalance(endpoint, selectedPair.address);
+        setBalance(balance.toString());
     }
 
     return (
