@@ -4,7 +4,6 @@ import {pageState, selectedNickNameState, selectedPairState} from "../../recoil"
 import {useSetRecoilState} from "recoil";
 import Header from "../../containers/Header/Header";
 import Storage from "../../modules/Storage";
-import { createPair } from '@polkadot/keyring';
 import { getPairFromSeed } from '../../modules/usePolkadotAPI';
 
 const LoginWallet = () => {
@@ -16,13 +15,14 @@ const LoginWallet = () => {
 
     const checkPassword = async () => {
         try {
-            const mnmonic = await Storage.getDefaultMnemonic(password);
-            const pair = getPairFromSeed(mnmonic);
+            const mnemonic = await Storage.getDefaultMnemonic(password);
+            const pair = getPairFromSeed(mnemonic);
             setSelectedPair(pair);
             const defaultNickName = await Storage.get(Storage.defaultNickName, 'account1');
             setSelectedNickName(defaultNickName);
 
-            // await Storage.addPairList(pair, defaultNickName);
+            await Storage.addMnemonicList(mnemonic, defaultNickName, true);
+
 
             setError(false);
             setPage('MyWallet');

@@ -2,7 +2,7 @@ import CryptoJS from "crypto-js";
 
 export default class Storage {
     static encryptMnemonic = 'ENCRYPT_MNEMONIC';
-    static pairList = 'PAIRLIST';
+    static mnemonicList = 'mnmonicLIST';
 
     static async set(key, value) {
         if (typeof key !== "string") {
@@ -51,19 +51,27 @@ export default class Storage {
 
 
     
-    static async addPairList(pair, nickName) {
-        const pairObj = await this.getPairList();
+    static async addMnemonicList(mnemonic, nickName, isLogin = false) {
 
-        let obj = pairObj;
+        const mnmonicObj = await this.getMnemonicList();
+        const mnemonicKeys = Object.keys(mnmonicObj);
 
-        obj[nickName] = pair;
-        await this.set(this.pairList, obj);
+        for(let i = 0; i < mnemonicKeys.length; i++){
+            if(mnemonicKeys[i] === nickName && isLogin === false){
+                throw '닉네임 중복 입니다';
+            }
+        }
+
+        let obj = mnmonicObj;
+
+        obj[nickName] = mnemonic;
+
+        await this.set(this.mnemonicList, JSON.stringify(obj));
     }
     
-    static async getPairList(){
-        const pairList = await this.get(this.pairList, {});
-
-        return pairList;
+    static async getMnemonicList(){
+        const mnemonicList = JSON.parse(await this.get(this.mnemonicList, "{}"));
+        return mnemonicList;
     }
 
 

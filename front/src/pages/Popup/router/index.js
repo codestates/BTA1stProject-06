@@ -10,6 +10,7 @@ import React from "react";
 import {useRecoilValue} from "recoil";
 import {pageState} from "../recoil";
 import AddPair from "../pages/AddPair/AddPair";
+import ImportPair from "../pages/ImportPair/ImportPair";
 
 export const render = () => {
     const page = useRecoilValue(pageState);
@@ -24,6 +25,7 @@ export const render = () => {
         case 'MyWallet': return <MyWallet />
         case 'Send': return <Send />
         case 'AddPair': return <AddPair />
+        case 'ImportPair': return <ImportPair />
         default: return <div>no page</div>
     }
 }

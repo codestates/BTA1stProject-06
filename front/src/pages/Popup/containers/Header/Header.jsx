@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './Header.css';
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {chainState, pageState, selectedNickNameState, selectedPairState} from "../../recoil/index";
-import {ExplorerLink} from "../../modules/usePolkadotAPI";
+import {ExplorerLink, getPairFromSeed} from "../../modules/usePolkadotAPI";
 import ChainItem from "../../component/ChainItem/ChainItem";
 import PairItem from '../../component/pairItem/pairItem';
 import Storage from '../../modules/Storage';
@@ -18,27 +18,37 @@ const Header = ({ backPageName, align, goHome = true }) => {
     const [chainList, setChainList] = useState([]);
     const [pairList, setPairList] = useState([]);
 
-    useEffect(async () => {
-        setChainList(Object.keys(ExplorerLink));
-
-        await getPairList();
-    }, [])
-
     const selectChain = (chainName) => {
         setChain(chainName);
         setChainDropBox(false);
+        setPage('MyWallet');
     }
 
     const selectPair = (data) => {
         setSelectedNickName(data[0]);
         setSelectedPair(data[1]);
         setProfileDropbox(false);
+        setPage('MyWallet');
     }
 
     const getPairList = async () => {
-        const pairs = Object.entries(await Storage.getPairList());
-        setPairList(pairs);
+        const pairs = Object.entries(await Storage.getMnemonicList());
+        let arr = [];
+
+        for(let i = 0; i < pairs.length; i++){
+            if(pairs[i][0] !== ''){
+                const pair = getPairFromSeed(pairs[i][1]);
+                arr.push([pairs[i][0], pair])
+            }
+        }
+        setPairList(arr);
     }
+
+    useEffect(async () => {
+        setChainList(Object.keys(ExplorerLink));
+
+        await getPairList();
+    }, [])
 
     return (
         <div className="Header">
@@ -82,6 +92,9 @@ const Header = ({ backPageName, align, goHome = true }) => {
                             }
                             </div>
                             <div className="profile-setting-box">
+                                <div className="profile-settin-item" style={{"borderBottom": '1px solid black'}} onClick={() => {
+                                    setPage('ImportPair');
+                                }}>계정 가져오기</div>
                                 <div className="profile-settin-item" onClick={() => {
                                     setPage('AddPair');
                                 }}>계정 생성</div>
