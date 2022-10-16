@@ -4,15 +4,31 @@ import {loadingState, pageState} from "../../recoil";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import Header from "../../containers/Header/Header";
 import { chainState, selectedPairState } from '../../recoil';
-import { DecimalPlaceFromPlanck, Chain, transferNativeToken, RpcEndpoint, getPairFromSeed } from '../../modules/usePolkadotAPI';
+import { DecimalPlaceFromPlanck, Chain, transferNativeToken, RpcEndpoint, getPairFromSeed, getFreeBalance } from '../../modules/usePolkadotAPI';
 import bigDecimal from 'js-big-decimal';
+import { useEffect } from 'react';
 
 const Send = () => {
     const setPage = useSetRecoilState(pageState);
     const [toAddr, setToAddr] = useState("");
     const [amount, setAmount] = useState(0n);
+    const [balance, setBalance] = useState("0");
     const chain = useRecoilValue(chainState);
     const pair = useRecoilValue(selectedPairState);
+
+    useEffect(async ()=>{
+        const balance = await loadBalance();
+        setBalance(balance);
+    }, [])
+
+    const loadBalance = async () => {
+        const value = await getFreeBalance(RpcEndpoint[chain], pair.address);
+        const units = new bigDecimal(value.toString());
+        const divider = new bigDecimal("1e12");
+        console.log(divider.getValue());
+        const balance = units.divide(divider, 4);
+        return balance.getValue();
+    }
 
     const onAddressChange = (e) => {
         setToAddr(e.target.value);
@@ -49,6 +65,8 @@ const Send = () => {
             // console.log(amount);
             const txHash = await transferNativeToken(RpcEndpoint[chain], pair, toAddr, amount);
             alert(`Tx Success!!! tx hash: ${txHash}`);
+            const balance = await loadBalance();
+            setBalance(balance);
         } catch (error) {
             alert(error);
         }
@@ -68,6 +86,7 @@ const Send = () => {
                 <div className="send-input-box">
                     <input className="send-input" placeholder="금액" onChange={onAmountChange}/>
                 </div>
+                <div className="send-balance-box">{`Balance: ${balance}`}</div>
 
                 <div className="send-btn-box">
                     <button className="send-cancel-btn" onClick={() => {
