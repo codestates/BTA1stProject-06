@@ -1,0 +1,78 @@
+.AddPair {
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+}
+
+.add-pair-title {
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.add-pair-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.add-pair-title-nickname-input-box {
+    display: flex;
+    justify-content: center;
+}
+
+.add-pair-title-nickname-input {
+    border: 1px solid #bbc0c5;
+    width: 200px;
+    height: 40px;
+    border-radius: 6px;
+    padding: 0 10px;
+}
+
+.add-pair-title-nickname-input:focus {
+    outline: none;
+    border: 1px solid #037dd6;
+}
+
+.add-pair-syntax-box {
+    width: 60%;
+    margin: 20px auto 20px auto;
+    padding: 15px;
+    border: 1px solid #bbbbbb;
+    border-radius: 6px;
+    text-align: center;
+    visibility: hidden;
+}
+
+.visibility-visible {
+    visibility: visible !important
+}
+
+.generate-btn-box {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: 40px;
+}
+
+.generate-btn {
+    width: 150px;
+    height: 40px;
+    border-radius: 500px;
+    color: white;
+    background-color: #037dd6;
+    border: none;
+    cursor: pointer;
+}
+
+.generate-btn:hover {
+    background-color: gray;
+}
+
+.add-pair-error-message {
+    font-size: 12px;
+    color: #d73a49;
+    visibility: hidden;
+}

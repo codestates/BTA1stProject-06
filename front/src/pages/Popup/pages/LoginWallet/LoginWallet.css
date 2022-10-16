@@ -30,7 +30,7 @@
 .login-password-input {
     border: none;
     border-radius: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #037dd6;
     font-size: 18px;
     padding: 10px;
     width: 60%;

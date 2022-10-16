@@ -1,22 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import './Header.css';
-import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {chainState, pageState, pairsState} from "../../recoil/index";
+import {useRecoilState, useSetRecoilState} from "recoil";
+import {chainState, pageState, selectedNickNameState, selectedPairState} from "../../recoil/index";
 import {ExplorerLink} from "../../modules/usePolkadotAPI";
 import ChainItem from "../../component/ChainItem/ChainItem";
 import PairItem from '../../component/pairItem/pairItem';
+import Storage from '../../modules/Storage';
 
 const Header = ({ backPageName, align, goHome = true }) => {
     const setPage = useSetRecoilState(pageState);
     const [chain, setChain] = useRecoilState(chainState);
-    const pairs = useRecoilValue(pairsState);
+    const [selectedPair, setSelectedPair] = useRecoilState(selectedPairState);
+    const setSelectedNickName = useSetRecoilState(selectedNickNameState);
 
     const [chainDropbox, setChainDropBox] = useState(false);
     const [profileDropbox, setProfileDropbox] = useState(false);
     const [chainList, setChainList] = useState([]);
+    const [pairList, setPairList] = useState([]);
 
     useEffect(async () => {
         setChainList(Object.keys(ExplorerLink));
+
+        await getPairList();
     }, [])
 
     const selectChain = (chainName) => {
@@ -24,13 +29,25 @@ const Header = ({ backPageName, align, goHome = true }) => {
         setChainDropBox(false);
     }
 
+    const selectPair = (data) => {
+        setSelectedNickName(data[0]);
+        setSelectedPair(data[1]);
+        setProfileDropbox(false);
+    }
+
+    const getPairList = async () => {
+        const pairs = Object.entries(await Storage.getPairList());
+        setPairList(pairs);
+    }
 
     return (
         <div className="Header">
             {
                 align === 'left' ?
                     <div className="left-head-box">
-                        <div className="top-left">
+                        <div className="top-left" onClick={() => {
+                            setPage('MyWallet');
+                        }}>
                             <img src="./parawallet32x32.png" />
                         </div>
 
@@ -45,7 +62,9 @@ const Header = ({ backPageName, align, goHome = true }) => {
                             setChainDropBox(false);
                             setProfileDropbox(!profileDropbox);
                         }}>
-                            <div className="profile-inner-box"></div>
+                            <div className="profile-inner-box">
+                                {selectedPair.address.slice(0, 2)}
+                            </div>
                         </div>
 
 
@@ -56,10 +75,17 @@ const Header = ({ backPageName, align, goHome = true }) => {
                             }
                         </div>
 
-                        <div className={`profile-drop-box ${profileDropbox ? 'display-block' : ''}`}>
+                        <div className={`profile-drop-box ${profileDropbox ? 'display-flex' : ''}`}>
+                            <div className="pair-list-box">
                             {
-                                pairs.map(( index) => <PairItem key={index} />)
+                                pairList.map((data, index) => <PairItem key={index} data={data} selectPair={selectPair} />)
                             }
+                            </div>
+                            <div className="profile-setting-box">
+                                <div className="profile-settin-item" onClick={() => {
+                                    setPage('AddPair');
+                                }}>계정 생성</div>
+                            </div>
                         </div>
 
                     </div>
