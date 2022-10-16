@@ -17,7 +17,7 @@ const AddPair = () => {
     const [error, setError] = useState('');
     const [mnemonic, setMnemonic] = useState('');
 
-    const [next, setNext] = useState('생성');
+    const [next, setNext] = useState('GENERATE');
 
     const checkNickName = () => {
         if(nickname === ''){setError(''); return;}
@@ -45,7 +45,7 @@ const AddPair = () => {
             await Storage.addMnemonicList(mnemonic, nickname);
             setNickName('')
             setVisible(true);
-            setNext('지갑');
+            setNext('WALLET');
         }catch(e){
             console.log(e);
             setError(e)
@@ -61,7 +61,7 @@ const AddPair = () => {
             <Header align="left"></Header>
 
             <div className="add-pair-box">
-                <div className="add-pair-title">계정 생성</div>
+                <div className="add-pair-title">Generate Pair</div>
 
                 <div className='add-pair-title-nickname-input-box'>
                     <input className="add-pair-title-nickname-input" value={nickname} placeholder="닉네임" onChange={(e)=>{

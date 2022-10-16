@@ -100,7 +100,7 @@ const CreateWallet = () => {
                     </div>
                 </div>
 
-                <button className={`create-btn ${allCheck === true ? 'check-all' : ''}`} onClick={createWallet}>다음</button>
+                <button className={`create-btn ${allCheck === true ? 'check-all' : ''}`} onClick={createWallet}>NEXT</button>
             </div>
         </div>
     );

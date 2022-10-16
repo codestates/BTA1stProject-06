@@ -35,7 +35,8 @@ const ProtectWallet = () => {
             <div className="next-btn-box">
                 <button className="next-btn" onClick={() => {
                     setPage("SecretRecoverySyntax");
-                }}>다음</button>
+                    
+                }}>NEXT</button>
             </div>
         </div>
     );

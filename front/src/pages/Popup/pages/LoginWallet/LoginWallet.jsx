@@ -53,7 +53,7 @@ const LoginWallet = () => {
 
 
             <div className="login-btn-box">
-                <button className="login-btn" onClick={checkPassword}>잠금해제</button>
+                <button className="login-btn" onClick={checkPassword}>UNLOCK</button>
             </div>
 
             <div className="password-help">비밀번호를 잊으셨나요?</div>

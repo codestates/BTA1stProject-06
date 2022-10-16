@@ -61,7 +61,7 @@ const ImportPair = () => {
             <Header align="left"></Header>
 
             <div className="import-pair-box">
-                <div className="import-pair-title">계정 가져오기</div>
+                <div className="import-pair-title">Import Pair</div>
 
                 <div className='import-pair-nickname-input-box'>
                     <input className="import-pair-nickname-input" placeholder="닉네임" onChange={(e)=>{
@@ -84,7 +84,7 @@ const ImportPair = () => {
                 </div>
 
                 <div className='import-btn-box'>
-                    <button className='import-btn' onClick={importAccount}>가져오기</button>
+                    <button className='import-btn' onClick={importAccount}>IMPORT</button>
                 </div>
 
             </div>

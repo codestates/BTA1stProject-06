@@ -22,7 +22,7 @@ const SecretRecoverySyntax = () => {
             <Header backPageName="ProtectWallet" goHome={false}></Header>
 
             <div>
-                <div className="protect-wallet-title">비밀 복구 구문</div>
+                <div className="protect-wallet-title">Recovery Secret Syntax</div>
 
                 <div className="protect-wallet-sub-title">비밀 백업 구문을 이용하면 계정을 쉽게 백업하고 복구할 수 있습니다.</div>
                 <div className="protect-wallet-sub-title">경고: 비밀 복구 구문은 절대로 공개하지 마세요.</div>
@@ -32,7 +32,8 @@ const SecretRecoverySyntax = () => {
             </div>
 
             <div className="protect-wallet-next-btn-box">
-                <button className="protect-wallet-next-btn" onClick={savePair}>완료</button>
+                <button className="protect-wallet-next-btn" onClick={savePair}>COMPLETE</button>
+
             </div>
 
             <div className="tip-box">
