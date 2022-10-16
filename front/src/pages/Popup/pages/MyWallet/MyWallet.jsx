@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
 import './MyWallet.css';
-import {pageState, pairState} from "../../recoil";
+import {pageState, selectedPairState} from "../../recoil";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import Header from "../../containers/Header/Header";
 
 const MyWallet = () => {
     const setPage = useSetRecoilState(pageState);
-    const pair = useRecoilValue(pairState);
+    const selectedPair = useRecoilValue(selectedPairState);
 
     useEffect( () => {
-        console.log(pair)
+        console.log(selectedPair)
     }, [])
 
     return (
@@ -18,7 +18,7 @@ const MyWallet = () => {
 
             <div className="wallet-info-box1">
                 <div>Account</div>
-                <div>{pair.address}</div>
+                <div>{selectedPair.address}</div>
             </div>
 
             <div className="wallet-info-box2">

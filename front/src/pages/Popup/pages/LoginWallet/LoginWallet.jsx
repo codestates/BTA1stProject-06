@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './LoginWallet.css';
-import {pageState, pairState} from "../../recoil";
+import {pageState, selectedPairState} from "../../recoil";
 import {useSetRecoilState} from "recoil";
 import Header from "../../containers/Header/Header";
 import Storage from "../../modules/Storage";
@@ -9,12 +9,12 @@ const LoginWallet = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
     const setPage = useSetRecoilState(pageState);
-    const setPair = useSetRecoilState(pairState);
+    const setSelectedPair = useSetRecoilState(selectedPairState);
 
     const checkPassword = async () => {
         try {
             const pair = await Storage.getKeyPair(password);
-            setPair(pair);
+            setSelectedPair(pair);
             setError(false);
             setPage('MyWallet');
         }catch (e) {

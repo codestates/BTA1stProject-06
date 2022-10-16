@@ -4,6 +4,7 @@ import {useRecoilState, useSetRecoilState} from "recoil";
 import {encryptPairState, mnState, pageState, pairState} from "../../recoil/index";
 import Header from "../../containers/Header/Header";
 import Storage from "../../modules/Storage";
+import { useEffect } from 'react';
 
 const SecretRecoverySyntax = () => {
     const setPage = useSetRecoilState(pageState);
