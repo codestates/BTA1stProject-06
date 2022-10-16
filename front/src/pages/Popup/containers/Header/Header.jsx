@@ -15,19 +15,13 @@ const Header = ({ backPageName, align, goHome = true }) => {
     const [profileDropbox, setProfileDropbox] = useState(false);
     const [chainList, setChainList] = useState([]);
 
-    const [balance, setBalance] = useState('');
-
-    useEffect(() => {
+    useEffect(async () => {
         setChainList(Object.keys(ExplorerLink));
     }, [])
 
-    const getBalance = async () => {
-
-    }
-
     const selectChain = (chainName) => {
         setChain(chainName);
-        chainDropbox(false);
+        setChainDropBox(false);
     }
 
 
