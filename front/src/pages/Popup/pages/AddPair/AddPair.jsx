@@ -1,18 +1,23 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import Header from '../../containers/Header/Header';
 import Storage from '../../modules/Storage';
 import { createMnemonic, createPairFromSeed } from '../../modules/usePolkadotAPI';
 import Validation from '../../modules/Validation';
+import { pageState } from '../../recoil';
 import './AddPair.css';
 
 const AddPair = () => {
+    const setPage = useSetRecoilState(pageState);
 
     const [isVisible, setVisible] = useState(false);
     const [nickname, setNickName] = useState('');
     const [error, setError] = useState('');
     const [mnemonic, setMnemonic] = useState('');
+
+    const [next, setNext] = useState('생성');
 
     const checkNickName = () => {
         if(nickname === ''){setError(''); return;}
@@ -26,19 +31,24 @@ const AddPair = () => {
 
     const generateAccount = async () => {
         try{
+            if(nickname === '' && isVisible === false){setError('닉네임을 입력해주세요'); return;}
+
+            if(isVisible) {
+                setPage('MyWallet');
+            }
+
             if(error !== '') return;
 
             const mnemonic = createMnemonic();
-            const pair = createPairFromSeed(mnemonic);
-            console.log(pair)
             setMnemonic(mnemonic);
-            // const pairs = await Storage.getPairList();
-            // console.log(pairs)
-            // await Storage.addPairList(pair, nickname);
+
+            await Storage.addMnemonicList(mnemonic, nickname);
             setNickName('')
-            setVisible(true)
+            setVisible(true);
+            setNext('지갑');
         }catch(e){
             console.log(e);
+            setError(e)
         }
     }
 
@@ -54,7 +64,7 @@ const AddPair = () => {
                 <div className="add-pair-title">계정 생성</div>
 
                 <div className='add-pair-title-nickname-input-box'>
-                    <input className="add-pair-title-nickname-input" placeholder="닉네임" onChange={(e)=>{
+                    <input className="add-pair-title-nickname-input" value={nickname} placeholder="닉네임" onChange={(e)=>{
                         setNickName(e.target.value);
                     }}/>
                 </div>
@@ -67,9 +77,13 @@ const AddPair = () => {
                 <div className={`add-pair-syntax-box ${isVisible ? 'visibility-visible' : ''}`}>
                     {mnemonic}
                 </div>
+        
+                <div className={`${isVisible ? 'visibility-visible' : ''}`} style={{'visibility': 'hidden', "fontWeight": '600'}}>
+                    기억하세요!!!
+                </div>
 
                 <div className='generate-btn-box'>
-                    <button className='generate-btn' onClick={generateAccount}>생성</button>
+                    <button className='generate-btn' onClick={generateAccount}>{next}</button>
                 </div>
 
             </div>

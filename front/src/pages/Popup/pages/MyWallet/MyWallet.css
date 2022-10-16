@@ -16,14 +16,16 @@
     text-align: center;
     padding: 20px 0;
     border-bottom: 1px solid #eeeeee;
+    font-weight: 500;
 }
 
 .btn-box {
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding: 10px 0;
+    padding: 30px 0;
     border-bottom: 1px solid #eeeeee;
+    margin-top: auto;
 }
 
 .history-box {
@@ -72,4 +74,14 @@
 
 .mywallet-send-btn:hover {
     background-color: grey;
+}
+
+.wall-info-nickname {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.wall-info-address {
+    font-weight: 500;
 }

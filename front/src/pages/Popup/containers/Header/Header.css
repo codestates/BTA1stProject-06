@@ -106,7 +106,7 @@
     top: 70px;
     background-color: white;
     width: 200px;
-    height: 250px;
+    height: 350px;
     box-shadow: 0 0 3px 0 #8d8d8d;
     border-radius: 6px;
     display: none;
@@ -164,10 +164,29 @@
 
 .pair-list-box {
     flex: 1;
+    overflow-y: auto;
 }
+
+.pair-list-box::-webkit-scrollbar {
+    width: 2px;  /* 스크롤바의 너비 */
+}
+
+.pair-list-box::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #217af4; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+.pair-list-box::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+
 
 .profile-setting-box {
     border-top: 1px solid black;
+    box-shadow: 0 -5px 4px 0 #0000001a;
 }
 
 .profile-settin-item {
@@ -179,5 +198,5 @@
 }
 
 .profile-settin-item:hover {
-    background-color: #eeeeee;
+    background-color: gray;
 }

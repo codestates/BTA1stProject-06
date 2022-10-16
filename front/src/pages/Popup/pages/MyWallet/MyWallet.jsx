@@ -12,29 +12,28 @@ const MyWallet = () => {
     const chain = useRecoilValue(chainState);
     const selectedNickName = useRecoilValue(selectedNickNameState);
     const selectedPair = useRecoilValue(selectedPairState);
-    const setLoading = useSetRecoilState(loadingState);
 
     const [balance, setBalance] = useState('');
 
-    useEffect( () => {
-        console.log(selectedPair)
-
+    useEffect(() => {
         getBalance();
-    }, [selectedNickName, selectedPair])
+    }, [selectedNickName, selectedPair, chain])
 
     const getBalance = async () => {
-        // setLoading(true);
+        setBalance('............');
         const endpoint = RpcEndpoint[chain];
         const balance = await getFreeBalance(endpoint, selectedPair.address);
         setBalance(balance.toString());
-        setLoading(false)
     }
 
     return (
         <div className="MyWallet">
             <Header align="left"></Header>
 
+
             <div className="wallet-info-box1">
+                <div className='wall-info-nickname'>{selectedNickName}</div>
+                <div className='wall-info-address'>{selectedPair.address}</div>
                 <div>{selectedNickName}</div>
                 <div>{selectedPair.address}</div>
                 {chain === "POLKADOT" &&
@@ -52,7 +51,7 @@ const MyWallet = () => {
             </div>
 
             <div className="wallet-info-box2">
-                {balance === '' ? '...' : balance}
+                {balance === '' ? '............' : balance}
             </div>
 
             <div className="btn-box">
@@ -67,12 +66,12 @@ const MyWallet = () => {
                 }
             </div>
             
-            <div className="history-box">
+            {/* <div className="history-box">
                 <div className="history-title">활동</div>
                 <div className="history-list">
 
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

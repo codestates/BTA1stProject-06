@@ -10,6 +10,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { pageState } from "../recoil";
 import AddPair from "../pages/AddPair/AddPair";
+import ImportPair from "../pages/ImportPair/ImportPair";
 
 export const render = () => {
     const page = useRecoilValue(pageState);
@@ -25,6 +26,7 @@ export const render = () => {
         case 'Send': return <Send isXCM={false} />
         case 'XCMSend': return <Send isXCM={true} />
         case 'AddPair': return <AddPair />
+        case 'ImportPair': return <ImportPair />
         default: return <div>no page</div>
     }
 }
