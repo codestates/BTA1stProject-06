@@ -3,8 +3,8 @@ import './Popup.css';
 import {render} from "./router";
 import { initWasm } from '@polkadot/wasm-crypto/initOnlyAsm';
 import { waitReady } from '@polkadot/wasm-crypto';
-import { cryptoWaitReady} from '@polkadot/util-crypto';
 import Loading from "./containers/Loading/Loading";
+import { cryptoWaitReady } from '@polkadot/util-crypto';
 
 const Popup = () => {
     useEffect(async ()=> {
