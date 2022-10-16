@@ -49,12 +49,11 @@ const CreateWallet = () => {
         try {
             const mnemonic = createMnemonic();
             const encryptMnemonic = CryptoJS.AES.encrypt(mnemonic, password).toString();
-            console.log(encryptMnemonic)
             setEncryptMnemonic(encryptMnemonic);
             setMnemonic(mnemonic);
             setPage("ProtectWallet");
         }catch (e) {
-            console.log(e);
+            // console.log(e);
         }
     }
 

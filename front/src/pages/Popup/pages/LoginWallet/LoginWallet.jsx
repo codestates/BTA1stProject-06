@@ -17,13 +17,13 @@ const LoginWallet = () => {
     const checkPassword = async () => {
         try {
             const mnmonic = await Storage.getDefaultMnemonic(password);
-            console.log(mnmonic);
             const pair = getPairFromSeed(mnmonic);
-            console.log(pair);
             setSelectedPair(pair);
             const defaultNickName = await Storage.get(Storage.defaultNickName, 'account1');
             setSelectedNickName(defaultNickName);
-            await Storage.addPairList(pair, defaultNickName);
+
+            // await Storage.addPairList(pair, defaultNickName);
+
             setError(false);
             setPage('MyWallet');
         }catch (e) {
