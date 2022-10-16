@@ -1,12 +1,35 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Header.css';
-import {useSetRecoilState} from "recoil";
-import {pageState} from "../../recoil/index";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {chainState, pageState, pairsState} from "../../recoil/index";
+import {ExplorerLink} from "../../modules/usePolkadotAPI";
+import ChainItem from "../../component/ChainItem/ChainItem";
+import PairItem from '../../component/pairItem/pairItem';
 
 const Header = ({ backPageName, align, goHome = true }) => {
     const setPage = useSetRecoilState(pageState);
+    const [chain, setChain] = useRecoilState(chainState);
+    const pairs = useRecoilValue(pairsState);
 
-    const [dropbox, setDropBox] = useState(false);
+    const [chainDropbox, setChainDropBox] = useState(false);
+    const [profileDropbox, setProfileDropbox] = useState(false);
+    const [chainList, setChainList] = useState([]);
+
+    const [balance, setBalance] = useState('');
+
+    useEffect(() => {
+        setChainList(Object.keys(ExplorerLink));
+    }, [])
+
+    const getBalance = async () => {
+
+    }
+
+    const selectChain = (chainName) => {
+        setChain(chainName);
+        chainDropbox(false);
+    }
+
 
     return (
         <div className="Header">
@@ -18,14 +41,33 @@ const Header = ({ backPageName, align, goHome = true }) => {
                         </div>
 
                         <div className="network-box" onClick={() => {
-                            setDropBox(!dropbox);
+                            setProfileDropbox(false);
+                            setChainDropBox(!chainDropbox);
                         }}>
-                            이더리움 메인넷
+                            {chain}
                         </div>
 
-                        <div className={`drop-box ${dropbox ? 'display-block' : ''}`}>
-
+                        <div className="profile-box" onClick={() => {
+                            setChainDropBox(false);
+                            setProfileDropbox(!profileDropbox);
+                        }}>
+                            <div className="profile-inner-box"></div>
                         </div>
+
+
+
+                        <div className={`chain-drop-box ${chainDropbox ? 'display-block' : ''}`}>
+                            {
+                                chainList.map((name, index) => <ChainItem key={index} chainName={name} selectChain={selectChain} />)
+                            }
+                        </div>
+
+                        <div className={`profile-drop-box ${profileDropbox ? 'display-block' : ''}`}>
+                            {
+                                pairs.map(( index) => <PairItem key={index} />)
+                            }
+                        </div>
+
                     </div>
                     :
                     <>

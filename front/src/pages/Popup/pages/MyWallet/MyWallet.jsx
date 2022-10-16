@@ -1,24 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './MyWallet.css';
-import {loadingState, pageState} from "../../recoil";
+import {pageState, selectedPairState} from "../../recoil";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import Header from "../../containers/Header/Header";
 
 const MyWallet = () => {
     const setPage = useSetRecoilState(pageState);
-    const isLoading = useRecoilValue(loadingState)
+    const selectedPair = useRecoilValue(selectedPairState);
+
+    useEffect( () => {
+        console.log(selectedPair)
+    }, [])
 
     return (
         <div className="MyWallet">
             <Header align="left"></Header>
 
             <div className="wallet-info-box1">
-                <div>Account1</div>
-                <div>0xF20...Cc4d</div>
+                <div>Account</div>
+                <div>{selectedPair.address}</div>
             </div>
 
             <div className="wallet-info-box2">
-                0 ETH
+
             </div>
 
             <div className="btn-box">

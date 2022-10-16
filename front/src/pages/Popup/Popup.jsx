@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import './Popup.css';
-import {useRecoilValue} from "recoil";
-import {pageState} from "./recoil";
-import Loading from "./containers/Loading/Loading";
 import {render} from "./router";
 import { initWasm } from '@polkadot/wasm-crypto/initOnlyAsm';
 import { waitReady } from '@polkadot/wasm-crypto';
+import Loading from "./containers/Loading/Loading";
 import { cryptoWaitReady } from '@polkadot/util-crypto';
 
 const Popup = () => {
-    const page = useRecoilValue(pageState);
     useEffect(async ()=> {
         await initWasm();
         await waitReady();
@@ -17,10 +14,10 @@ const Popup = () => {
     }, [])
 
     return (
-            <div className="App">
-                {render(page)}
-                <Loading></Loading>
-            </div>
+        <div className="App">
+            {render()}
+            <Loading />
+        </div>
     );
 };
 

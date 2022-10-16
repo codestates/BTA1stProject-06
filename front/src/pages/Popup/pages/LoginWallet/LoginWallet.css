@@ -21,8 +21,10 @@
 
 .login-password-input-box {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin-bottom: 20px;
+    align-items: center;
+    margin-bottom: 50px;
 }
 
 .login-password-input {
@@ -31,6 +33,8 @@
     border-bottom: 1px solid black;
     font-size: 18px;
     padding: 10px;
+    width: 60%;
+    box-sizing: border-box;
 }
 
 .login-password-input:focus {
@@ -67,4 +71,18 @@
 
 .password-help:hover {
     color: blue;
+}
+
+.error-box {
+    width: 60%;
+}
+
+.login-error-message {
+    font-size: 12px;
+    color: #d73a49;
+    visibility: hidden;
+}
+
+.login-error-visibility-visible {
+    visibility: visible;
 }
