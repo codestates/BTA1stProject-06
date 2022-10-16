@@ -3,8 +3,9 @@ import './MyWallet.css';
 import {chainState, loadingState, pageState, selectedNickNameState, selectedPairState} from "../../recoil";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import Header from "../../containers/Header/Header";
-import { getFreeBalance, RpcEndpoint } from '../../modules/usePolkadotAPI';
+import { getFreeBalance, RpcEndpoint, SS58Format } from '../../modules/usePolkadotAPI';
 import { useState } from 'react';
+import { encodeAddress } from '@polkadot/util-crypto';
 
 const MyWallet = () => {
     const setPage = useSetRecoilState(pageState);
@@ -36,6 +37,18 @@ const MyWallet = () => {
             <div className="wallet-info-box1">
                 <div>{selectedNickName}</div>
                 <div>{selectedPair.address}</div>
+                {chain === "POLKADOT" &&
+                    <div>{`POLKADOT:  ${encodeAddress(selectedPair.publicKey, SS58Format.POLKADOT)}`}</div>
+                }
+                {chain === "KUSAMA" &&
+                    <div>{`KUSAMA:  ${encodeAddress(selectedPair.publicKey, SS58Format.KUSAMA)}`}</div>
+                }
+                {chain === "ASTAR" &&
+                    <div>{`ASTAR:  ${encodeAddress(selectedPair.publicKey, SS58Format.ASTAR)}`}</div>
+                }
+                {chain === "ACALA" &&
+                    <div>{`ACALA:  ${encodeAddress(selectedPair.publicKey, SS58Format.ACALA)}`}</div>
+                }
             </div>
 
             <div className="wallet-info-box2">

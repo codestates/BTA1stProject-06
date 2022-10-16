@@ -101,7 +101,7 @@ const Header = ({ backPageName, align, goHome = true }) => {
                             }
                         }}>
                             <img src="./parawallet32x32.png" />
-                            <div className="main-title">A-MAN</div>
+                            <div className="main-title">PARA-WALLET</div>
                         </div>
 
                         <div className="empty">{'>'}</div>
