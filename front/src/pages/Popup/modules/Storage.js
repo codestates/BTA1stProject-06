@@ -1,11 +1,12 @@
 import CryptoJS from "crypto-js";
 
 export default class Storage {
-    static keyPair = 'KEYPAIR';
+    static encryptMnemonic = 'ENCRYPT_MNEMONIC';
+    static pairList = 'PAIRLIST';
 
     static async set(key, value) {
-        if (typeof key !== "string" || typeof value !== "string") {
-            throw 'key와 value는 문자열입니다';
+        if (typeof key !== "string") {
+            throw 'key는 문자열입니다';
         }
 
         let obj = {}
@@ -18,11 +19,11 @@ export default class Storage {
         })
     }
 
-    static async get(key) {
+    static async get(key, defaultValue = '') {
         return new Promise((resolve, reject) => {
             chrome.storage.local.get((data) => {
                 if (data[key] === undefined) {
-                    reject('없는 키값 입니다');
+                    resolve(defaultValue);
                     return;
                 }
 
@@ -35,12 +36,35 @@ export default class Storage {
         await chrome.storage.local.clear();
     }
 
-    static async setKeyPair(pair, password) {
-        return await this.set(this.keyPair, CryptoJS.AES.encrypt(JSON.stringify(pair), password).toString());
+    static async setDefaultEncryptMnemonic(encryptMnemonic) {
+        await this.set(this.encryptMnemonic, encryptMnemonic);
     }
     
-    static async getKeyPair(password){
-        const keyPair = await this.get(this.keyPair);
-        return JSON.parse(CryptoJS.AES.decrypt(keyPair, password).toString(CryptoJS.enc.Utf8));
+    static async getDefaultMnemonic(password){
+        const encryptMnemonic = await this.get(this.encryptMnemonic);
+        const bytes = CryptoJS.AES.decrypt(encryptMnemonic, password);
+        const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+
+        return decrypted;
     }
+
+
+
+    
+    static async addPairList(pair, nickName) {
+        const pairObj = await this.getPairList();
+
+        let obj = pairObj;
+
+        obj[nickName] = pair;
+        await this.set(this.pairList, JSON.stringify(obj));
+    }
+    
+    static async getPairList(){
+        const pairList = await this.get(this.pairList, {});
+
+        return JSON.parse(pairList);
+    }
+
+
 }

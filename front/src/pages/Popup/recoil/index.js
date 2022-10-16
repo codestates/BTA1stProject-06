@@ -10,27 +10,28 @@ export const loadingState = atom({
     default: false
 })
 
+export const encryptMnemonicState = atom({
+    key: 'encrypt-mnemonic',
+    default: ''
+})
+
+
 export const selectedPairState = atom({
     key: 'selected-pair',
     default: {}
 })
 
-export const encryptPairState = atom({
-    key: 'encrypt-pair',
+export const selectedNickNameState = atom({
+    key: 'selected-nickname',
     default: ''
 })
 
-export const pairsState = atom({
-    key: 'pairs',
-    default: []
+export const mnemonicState = atom({
+    key: 'mnemonic',
+    default: ''
 })
 
 export const chainState = atom({
     key: 'chain',
     default: 'POLKADOT'
-})
-
-export const mnState = atom({
-    key: 'mn',
-    default: ''
 })

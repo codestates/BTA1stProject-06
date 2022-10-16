@@ -9,10 +9,11 @@ import Send from "../pages/Send/Send";
 import React from "react";
 import {useRecoilValue} from "recoil";
 import {pageState} from "../recoil";
+import AddPair from "../pages/AddPair/AddPair";
 
 export const render = () => {
     const page = useRecoilValue(pageState);
-    const qwer = 'CreateWallet';
+    const qwer = 'AddPair';
     switch(page){
         case 'Start': return <Start />
         case 'Select':return <Select />
@@ -22,6 +23,7 @@ export const render = () => {
         case 'LoginWallet': return <LoginWallet />
         case 'MyWallet': return <MyWallet />
         case 'Send': return <Send />
+        case 'AddPair': return <AddPair />
         default: return <div>no page</div>
     }
 }

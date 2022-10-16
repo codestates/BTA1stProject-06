@@ -2,17 +2,15 @@ import React, {useEffect, useState} from 'react';
 import './CreateWallet.css';
 import Header from "../../containers/Header/Header";
 import {useSetRecoilState} from "recoil";
-import {pageState, mnState, encryptPairState, selectedPairState, pairsState} from "../../recoil/index";
-import {createMnemonic, createPairFromSeed} from "../../modules/usePolkadotAPI";
+import {pageState, encryptMnemonicState, mnemonicState} from "../../recoil/index";
+import {createMnemonic} from "../../modules/usePolkadotAPI";
 import Validation from "../../modules/Validation";
 import CryptoJS from "crypto-js";
 
 const CreateWallet = () => {
     const setPage = useSetRecoilState(pageState);
-    const setMn = useSetRecoilState(mnState);
-    const setEncryptPair = useSetRecoilState(encryptPairState);
-    const setSelectedPair = useSetRecoilState(selectedPairState);
-    const setPairs = useSetRecoilState(pairsState);
+    const setMnemonic= useSetRecoilState(mnemonicState);
+    const setEncryptMnemonic = useSetRecoilState(encryptMnemonicState);
 
     const [password, setPassWord] = useState('');
     const [rePassword, setRePassWord] = useState('');
@@ -50,12 +48,10 @@ const CreateWallet = () => {
     const createWallet = async () => {
         try {
             const mnemonic = createMnemonic();
-            const pair = createPairFromSeed(mnemonic);
-
-            setEncryptPair(CryptoJS.AES.encrypt(JSON.stringify(pair), password).toString());
-            setSelectedPair(pair);
-            setPairs([pair]);
-            setMn(mnemonic);
+            const encryptMnemonic = CryptoJS.AES.encrypt(mnemonic, password).toString();
+            console.log(encryptMnemonic)
+            setEncryptMnemonic(encryptMnemonic);
+            setMnemonic(mnemonic);
             setPage("ProtectWallet");
         }catch (e) {
             console.log(e);
