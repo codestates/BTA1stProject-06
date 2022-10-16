@@ -27,7 +27,7 @@ const Header = ({ backPageName, align, goHome = true }) => {
                         <div className="network-box" onClick={() => {
                             setDropBox(!dropbox);
                         }}>
-                            이더리움 메인넷
+                            {chainList[0]}
                         </div>
 
                         <div className={`drop-box ${dropbox ? 'display-block' : ''}`}>
