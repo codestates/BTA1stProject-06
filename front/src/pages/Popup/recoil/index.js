@@ -15,7 +15,6 @@ export const encryptMnemonicState = atom({
     default: ''
 })
 
-
 export const selectedPairState = atom({
     key: 'selected-pair',
     default: {}

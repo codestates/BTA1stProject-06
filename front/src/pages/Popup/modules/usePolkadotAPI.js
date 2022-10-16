@@ -21,7 +21,7 @@ export const SS58Format = Object.freeze({
     DEFAULT: 42, //ROCOCO, ROCOCO_CONTRACTS
 })
 
-export const DecimalPaceFromPlanck = Object.freeze({
+export const DecimalPlaceFromPlanck = Object.freeze({
     POLKADOT: 10,
     KUSAMA: 12,
     ASTAR: 18,
