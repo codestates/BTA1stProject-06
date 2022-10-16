@@ -56,7 +56,7 @@ const LoginWallet = () => {
                 <button className="login-btn" onClick={checkPassword}>UNLOCK</button>
             </div>
 
-            <div className="password-help">비밀번호를 잊으셨나요?</div>
+            {/* <div className="password-help">비밀번호를 잊으셨나요?</div> */}
         </div>
     );
 };
