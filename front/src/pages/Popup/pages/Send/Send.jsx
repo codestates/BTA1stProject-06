@@ -127,8 +127,8 @@ const Send = (props) => {
                 <div className="send-btn-box">
                     <button className="send-cancel-btn" onClick={() => {
                         setPage('MyWallet');
-                    }}>취소</button>
-                    <button className="send-btn" onClick={handleSendBtnClick}>보내기</button>
+                    }}>CANCEL</button>
+                    <button className="send-btn" onClick={handleSendBtnClick}>SEND</button>
                 </div>
             </div>
         </div>

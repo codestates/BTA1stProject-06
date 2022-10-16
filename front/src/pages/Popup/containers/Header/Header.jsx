@@ -94,10 +94,10 @@ const Header = ({ backPageName, align, goHome = true }) => {
                             <div className="profile-setting-box">
                                 <div className="profile-settin-item" style={{"borderBottom": '1px solid black'}} onClick={() => {
                                     setPage('ImportPair');
-                                }}>계정 가져오기</div>
+                                }}>Import Pair</div>
                                 <div className="profile-settin-item" onClick={() => {
                                     setPage('AddPair');
-                                }}>계정 생성</div>
+                                }}>Generate Pair</div>
                             </div>
                         </div>
 

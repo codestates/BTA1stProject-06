@@ -28,7 +28,7 @@ const Start = () => {
 
             <button className="start-btn" onClick={() => {
                 setPage('Select');
-            }}>시작하기</button>
+            }}>START</button>
         </div>
     );
 };

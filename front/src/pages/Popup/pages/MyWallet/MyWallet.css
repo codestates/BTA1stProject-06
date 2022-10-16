@@ -85,3 +85,11 @@
 .wall-info-address {
     font-weight: 500;
 }
+
+.symbol {
+    margin-left: 10px;
+}
+
+.address-type {
+    margin-top: 10px;
+}
