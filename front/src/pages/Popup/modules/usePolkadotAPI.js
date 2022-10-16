@@ -1,6 +1,6 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { Keyring } from '@polkadot/keyring';
-import { mnemonicGenerate, cryptoWaitReady } from '@polkadot/util-crypto';
+import { mnemonicGenerate, cryptoWaitReady, decodeAddress } from '@polkadot/util-crypto';
 
 const RpcEndpoint = Object.freeze({
     POLKADOT: "wss://rpc.polkadot.io:443",
@@ -56,7 +56,6 @@ export const getPairFromSeed = (mnemonic) => {
     return pair;
 };
 
-
 export const getPairFromSeedWithSS58 = (
     mnemonic,
     ss58Format,
@@ -80,19 +79,131 @@ export const getFreeBalance = async (
 
 export const transferNativeToken = async (
     fullNodeUri,
-    mnemonic,
+    pair,
     to,
     amountInUnits,//bigint
 ) => {
     const provider = new WsProvider(fullNodeUri);
     const api = await ApiPromise.create({ provider });
-    const pair = getPairFromSeed(mnemonic);
     const transfer = api.tx.balances.transfer(to, amountInUnits);
     const hash = await transfer.signAndSend(pair);
     return hash.toHex();
 };
 
+const toAccountId32 = (addressRaw) => {
+    // Uint8Array to hexadecimal 32bytes account id
+    return '0x' + [...addressRaw].map(x => x.toString(16).padStart(2, '0')).join('');
+}
 
+/// ROCOCO-Contracts to ROCOCO
+export const teleportAssetsFromContractsToROC = async (
+    fullNodeUri,
+    pair, // pair (from)
+    to, //pair.address (to)
+    amountInUnits, //bigint
+) => {
+    const provider = new WsProvider(fullNodeUri);
+    const api = await ApiPromise.create({ provider });
+    const dest = api.createType('XcmVersionedMultiLocation', {
+        V1: {
+            parents: 1,
+            interior: "Here"
+        }
+    });
+    const beneficiary = api.createType('XcmVersionedMultiLocation', {
+        V1: {
+            parents: 0,
+            interior: {
+                X1: {
+                    AccountId32: {
+                        network: "Any",
+                        id: toAccountId32(decodeAddress(to))
+                    }
+                }
+            }
+        }
+    });
+    const assets = api.createType('XcmVersionedMultiAssets', {
+        V1: [
+            {
+                id: {
+                    Concrete: {
+                        parents: 1,
+                        interior: "Here"
+                    }
+                },
+                fun: {
+                    Fungible: amountInUnits
+                }
+            }
+        ]
+    });
+    const feeAssetItem = 0;
+    const weightLimit = api.createType('XcmV2WeightLimit', "Unlimited");
+    const xcm = api.tx.polkadotXcm.limitedTeleportAssets(
+        dest, beneficiary, assets, feeAssetItem, weightLimit
+    );
+    const txHash = await xcm.signAndSend(pair);
+    return txHash.toHex();
+};
+
+/// ROCOCO to ROCOCO_CONTRACTS
+export const teleportAssetsFromROCToContracts = async (
+    fullNodeUri,
+    pair, // pair(from)
+    to, // pair.address(to)
+    amountInUnits, // bigint
+) => {
+    const provider = new WsProvider(fullNodeUri);
+    const api = await ApiPromise.create({ provider });
+    const dest = api.createType('XcmVersionedMultiLocation', {
+        V1: {
+            parents: 0,
+            interior: {
+                X1: {
+                    Parachain: 1002
+                }
+            }
+        }
+    });
+    const beneficiary = api.createType('XcmVersionedMultiLocation', {
+        V1: {
+            parents: 0,
+            interior: {
+                X1: {
+                    AccountId32: {
+                        network: "Any",
+                        id: toAccountId32(decodeAddress(to))
+                    }
+                }
+            }
+        }
+    });
+    const assets = api.createType('XcmVersionedMultiAssets', {
+        V1: [
+            {
+                id: {
+                    Concrete: {
+                        parents: 0,
+                        interior: "Here"
+                    }
+                },
+                fun: {
+                    Fungible: amountInUnits
+                }
+            }
+        ]
+    });
+    const feeAssetItem = 0;
+    const weightLimit = api.createType('XcmV2WeightLimit', "Unlimited");
+    const xcm = api.tx.xcmPallet.limitedTeleportAssets(
+        dest, beneficiary, assets, feeAssetItem, weightLimit
+    );
+    const txHash = await xcm.signAndSend(pair);
+    return txHash.toHex();
+}
+
+/// tests
 const keyPairTest = async () => {
     console.log('keypair test start');
     const mnemonic = mnemonicGenerate();
@@ -121,17 +232,30 @@ const balanceTest = async () => {
 
 const sendTxTest = async () => {
     console.log('sendTx test start');
-    const pair2 = getPairFromSeedWithSS58("받을 계좌(to)의 니모닉", SS58Format.ROCOCO_CONTRACTS);
-    const txHash = await transferNativeToken(RpcEndpoint.ROCOCO_CONTRACTS, "전송하는 계좌(from)의 니모닉", pair2.address, 1000000000000n);
+    const amount = 10000000000n; // 0.01 ROC
+    const toAddressInContracts = "5FC1pcu7fb7Rezb9z2REuhgLnXDp8gN4m7AstWAvfqzXvv9M";
+    const pair = getPairFromSeedWithSS58("ice twist upper property roast flavor step plate cycle flower object sausage", SS58Format.ROCOCO_CONTRACTS);
+    const txHash = await transferNativeToken(RpcEndpoint.ROCOCO_CONTRACTS, pair, toAddressInContracts, amount);
     console.log(txHash);
     console.log('sendTx test finished');
 }
 
+const xcmTest = async () => {
+    const pair = getPairFromSeedWithSS58("ice twist upper property roast flavor step plate cycle flower object sausage", SS58Format.ROCOCO_CONTRACTS);
+    const toAddress = "5FC1pcu7fb7Rezb9z2REuhgLnXDp8gN4m7AstWAvfqzXvv9M";
+    const amount = 10000000000n;
+    const txHashToROC = await teleportAssetsFromContractsToROC(RpcEndpoint.ROCOCO_CONTRACTS, pair, toAddress, amount);
+    console.log(txHashToROC);
+    const txHashToContracts = await teleportAssetsFromROCToContracts(RpcEndpoint.ROCOCO, pair, toAddress, amount);
+    console.log(txHashToContracts);
+}
+
 const initTest = async () => {
     await cryptoWaitReady();
-    await sendTxTest();
+    // await xcmTest();
     // await keyPairTest();
     // await balanceTest();
+    // await sendTxTest();
 };
 
 // initTest();

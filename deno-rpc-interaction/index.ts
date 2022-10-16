@@ -13,6 +13,7 @@ import type { } from "https://deno.land/x/polkadot@0.0.9/api-augment/mod.ts";
 import type { AnyJson } from "https://deno.land/x/polkadot@0.0.9/types-codec/types/index.ts";
 import { mnemonicGenerate } from "https://deno.land/x/polkadot@0.2.10/util-crypto/mod.ts";
 import { cryptoWaitReady } from "https://deno.land/x/polkadot@0.0.9/util-crypto/crypto.ts";
+import { decodeAddress, encodeAddress } from "https://deno.land/x/polkadot@0.0.9/util-crypto/bundle.ts";
 
 export const createPairFromSeed = (mnemonic: string): KeyringPair => {
   const seed: string = mnemonic;
