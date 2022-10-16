@@ -2,14 +2,14 @@ import { ApiPromise, WsProvider } from '@polkadot/api';
 import { Keyring } from '@polkadot/keyring';
 import { mnemonicGenerate, cryptoWaitReady, decodeAddress } from '@polkadot/util-crypto';
 
-const RpcEndpoint = Object.freeze({
+export const RpcEndpoint = Object.freeze({
     POLKADOT: "wss://rpc.polkadot.io:443",
     KUSAMA: "wss://kusama-rpc.polkadot.io:443",
     ASTAR: "wss://astar-rpc.dwellir.com:443",
     ACALA: "wss://acala-rpc.dwellir.com",
     ROCOCO: "wss://rococo-rpc.polkadot.io:443",
     ROCOCO_CONTRACTS: "wss://rococo-contracts-rpc.polkadot.io:443",
-});
+})
 
 export const SS58Format = Object.freeze({
     POLKADOT: 0,

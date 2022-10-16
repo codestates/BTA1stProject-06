@@ -1,5 +1,5 @@
 import React from 'react';
-import './PairItem.css';
+import './pairItem.css';
 
 const PairItem = ({index}) => {
     return (
