@@ -57,13 +57,13 @@ export default class Storage {
         let obj = pairObj;
 
         obj[nickName] = pair;
-        await this.set(this.pairList, JSON.stringify(obj));
+        await this.set(this.pairList, obj);
     }
     
     static async getPairList(){
         const pairList = await this.get(this.pairList, {});
 
-        return JSON.parse(pairList);
+        return pairList;
     }
 
 
