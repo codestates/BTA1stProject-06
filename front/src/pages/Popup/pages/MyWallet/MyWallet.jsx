@@ -60,6 +60,11 @@ const MyWallet = () => {
                 <button className="mywallet-send-btn" onClick={() => {
                     setPage("Send");
                 }}>보내기</button>
+                {(chain === "ROCOCO" || chain === "ROCOCO_CONTRACTS" )&&
+                    <button className="mywallet-send-btn" onClick={() => {
+                        setPage("XCMSend");
+                    }}>XCM 보내기</button>
+                }
             </div>
             
             <div className="history-box">
